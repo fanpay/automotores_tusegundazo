@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehiculo } from '../vehiculo';
+import { VehiculoService } from '../vehiculo.service';
 
 @Component({
   selector: 'app-vehiculo-list',
@@ -7,12 +8,19 @@ import { Vehiculo } from '../vehiculo';
   styleUrls: ['./vehiculo-list.component.css']
 })
 export class VehiculoListComponent implements OnInit {
-  vehiculo: Array<Vehiculo> = [];
+  vehiculos: Array<Vehiculo> = [];
 
-  constructor() { }
+  constructor(private vehiculoService: VehiculoService) { }
 
   ngOnInit() {
+    this.getVehiculos();
 
+  }
+
+  getVehiculos(): void {
+    this.vehiculoService.getVehiculos().subscribe((vehiculos) => {
+      this.vehiculos = vehiculos;
+    });
   }
 
 }
